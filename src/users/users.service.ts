@@ -19,9 +19,9 @@ export class UsersService {
       // Here The User ist Created.
       const newUser = this.userRepository.create(dto)
       // delete the password from the database response
-      return await this.userRepository.save(newUser)
-      // delete user.password;
-      //  return user;
+      const user =  await this.userRepository.save(newUser)
+      delete user.password;
+       return user;
   }
 
    async findAll() {

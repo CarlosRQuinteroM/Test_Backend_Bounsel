@@ -12,6 +12,7 @@ import {
 } from "./config/constents";
 import { UsersModule } from "./users/users.module";
 import { TimeReportModule } from "./time-report/time-report.module";
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { TimeReportModule } from "./time-report/time-report.module";
     }),
     UsersModule,
     TimeReportModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

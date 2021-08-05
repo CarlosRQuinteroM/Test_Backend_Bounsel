@@ -14,7 +14,6 @@ import { UsersModule } from "./users/users.module";
 import { TimeReportModule } from "./time-report/time-report.module";
 import { AuthModule } from './auth/auth.module';
 import { AccessControlModule } from "nest-access-control";
-import { roles } from "./app.roles";
 
 @Module({
   imports: [
@@ -38,7 +37,6 @@ import { roles } from "./app.roles";
       }),
       inject: [ConfigService],
     }),
-    AccessControlModule.forRoles(roles),
     UsersModule,
     TimeReportModule,
     AuthModule,

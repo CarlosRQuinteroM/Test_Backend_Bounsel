@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -9,12 +9,14 @@ import { ApiTags } from '@nestjs/swagger';
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+  
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     const data = await this.usersService.create(createUserDto);
     return{mesage:`User created`, data}
   }
+  
   @Auth()
   @Get()
   async findAll() {

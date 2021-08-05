@@ -1,4 +1,5 @@
 import { hash } from "bcrypt";
+import { TimeReport } from "src/time-report/entities";
 import {
   BeforeInsert,
   BeforeUpdate,
@@ -11,6 +12,7 @@ import {
 
 @Entity("users")
 export class User {
+  
   @PrimaryGeneratedColumn()
   id: number;
   @Column({ type: "varchar", length: 200 })
@@ -21,8 +23,6 @@ export class User {
   email: string;
   @Column({ type: "varchar", length: 120, nullable: false, select: false })
   password: string;
-  @Column({type:"simple-array"})
-  roles: string[];
   @Column({ type: "bool", default: true })
   status: boolean;
   @CreateDateColumn({ name: "create_at", type: "timestamp" })
@@ -36,4 +36,9 @@ export class User {
     }
     this.password = await hash(this.password, 10);
   }
+
+  @OneToMany(type =>TimeReport , timeReport =>timeReport.user )
+  timeReport :TimeReport[];
+
+
 }

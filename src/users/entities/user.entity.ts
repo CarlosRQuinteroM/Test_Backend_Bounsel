@@ -21,6 +21,8 @@ export class User {
   email: string;
   @Column({ type: "varchar", length: 120, nullable: false, select: false })
   password: string;
+  @Column({type:"simple-array"})
+  roles: string[];
   @Column({ type: "bool", default: true })
   status: boolean;
   @CreateDateColumn({ name: "create_at", type: "timestamp" })

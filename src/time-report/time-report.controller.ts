@@ -1,36 +1,37 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { TimeReportService } from './time-report.service';
 import { CreateTimeReportDto } from './dto/create-time-report.dto';
 import { UpdateTimeReportDto } from './dto/update-time-report.dto';
-import { Auth } from 'src/common/decorators';
+import { Auth, User } from 'src/common/decorators';
+import { User as UserEntity } from '../users/entities/user.entity';
 
-@Controller('time-report')
+@Controller('time-reports')
 export class TimeReportController {
   constructor(private readonly timeReportService: TimeReportService) {}
-  
-  @Auth()
-  @Post()
-  create(@Body() createTimeReportDto: CreateTimeReportDto) {
-    return this.timeReportService.create(createTimeReportDto);
+
+  @Post('/create')
+  async create(@Body() dto: CreateTimeReportDto) {
+    const data = await this.timeReportService.create(dto)
+    return { message: 'Post created', data };
   }
-  @Auth()
+
   @Get()
-  findAll() {
-    return this.timeReportService.findAll();
+  async findAll() {
+    return await this.timeReportService.findAll();
   }
-  @Auth()
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.timeReportService.findOne(+id);
+
+  @Get()
+  async findOne(@Param('id') id: number) {
+    return await this.timeReportService.findOne(id);
   }
-  @Auth()
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTimeReportDto: UpdateTimeReportDto) {
-    return this.timeReportService.update(+id, updateTimeReportDto);
+
+  @Put(':id')
+  async update(@Param('id') id: number, @Body() updateTimeReportDto: UpdateTimeReportDto) {
+    return await this.timeReportService.update(id, updateTimeReportDto);
   }
-  @Auth()
+
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.timeReportService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.timeReportService.remove(+id);
   }
 }

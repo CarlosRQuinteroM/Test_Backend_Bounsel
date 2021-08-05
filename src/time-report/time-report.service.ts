@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/users/entities';
 import { Repository } from 'typeorm';
 import { CreateTimeReportDto } from './dto/create-time-report.dto';
 import { UpdateTimeReportDto } from './dto/update-time-report.dto';
@@ -13,8 +14,8 @@ export class TimeReportService {
     private readonly timeReportRepository : Repository<TimeReport>
   ){}
 
-  async create(dto: CreateTimeReportDto) {
-    const newTimeReprt = this.timeReportRepository.create(dto)
+  async create(dto: CreateTimeReportDto, user:User) {
+    const newTimeReprt = this.timeReportRepository.create({...dto, user})
     const timeReport =  await this.timeReportRepository.save(newTimeReprt)
      return timeReport;
   }

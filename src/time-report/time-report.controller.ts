@@ -2,16 +2,17 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/
 import { TimeReportService } from './time-report.service';
 import { CreateTimeReportDto } from './dto/create-time-report.dto';
 import { UpdateTimeReportDto } from './dto/update-time-report.dto';
-import { Auth, User } from 'src/common/decorators';
+import {  Auth, User } from 'src/common/decorators';
 import { User as UserEntity } from '../users/entities/user.entity';
 
 @Controller('time-reports')
 export class TimeReportController {
   constructor(private readonly timeReportService: TimeReportService) {}
 
+  @Auth()
   @Post('/create')
-  async create(@Body() dto: CreateTimeReportDto) {
-    const data = await this.timeReportService.create(dto)
+  async createTimeReport(@Body() dto: CreateTimeReportDto, @User() user: UserEntity) {
+    const data = await this.timeReportService.create(dto, user)
     return { message: 'Post created', data };
   }
 

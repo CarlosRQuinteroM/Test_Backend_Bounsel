@@ -12,9 +12,10 @@ import {
 
 @Entity("users")
 export class User {
-  
   @PrimaryGeneratedColumn()
   id: number;
+  @OneToMany(() => TimeReport, (timeReport) => timeReport.user)
+  timeReport: TimeReport[];
   @Column({ type: "varchar", length: 200 })
   name: string;
   @Column({ name: "last_name", type: "varchar", length: 200 })
@@ -36,9 +37,4 @@ export class User {
     }
     this.password = await hash(this.password, 10);
   }
-
-  @OneToMany(type =>TimeReport , timeReport =>timeReport.user )
-  timeReport :TimeReport[];
-
-
 }

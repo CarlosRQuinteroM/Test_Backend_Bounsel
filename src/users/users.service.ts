@@ -31,14 +31,20 @@ export class UsersService {
   async findOne(id: number) {
     const user = await this.userRepository.findOne(id)
     if(!user) throw new NotFoundException('User Not Found')
-    return `This action returns a #${user.id} user`;
+    return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+    const user = await this.userRepository.findOne(id)
+    //Here we check that the user exists
+    if (!user) throw new NotFoundException(`User dont exist or unautorized`);
+    //we edit the user
+    const editUser = Object.assign(user, updateUserDto);
+    return await this.userRepository.save(editUser);
   }
 
-  async remove(id: number) {
-    return `This action removes a #${id} user`;
+  async deleteOne(id: number) {
+    const user = await this.findOne(id)
+    return await this.userRepository.remove(user);
   }
 }

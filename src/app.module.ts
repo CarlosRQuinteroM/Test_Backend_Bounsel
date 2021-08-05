@@ -13,6 +13,8 @@ import {
 import { UsersModule } from "./users/users.module";
 import { TimeReportModule } from "./time-report/time-report.module";
 import { AuthModule } from './auth/auth.module';
+import { AccessControlModule } from "nest-access-control";
+import { roles } from "./app.roles";
 
 @Module({
   imports: [
@@ -20,6 +22,7 @@ import { AuthModule } from './auth/auth.module';
       envFilePath: ".env",
       isGlobal: true,
     }),
+
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -35,6 +38,7 @@ import { AuthModule } from './auth/auth.module';
       }),
       inject: [ConfigService],
     }),
+    AccessControlModule.forRoles(roles),
     UsersModule,
     TimeReportModule,
     AuthModule,

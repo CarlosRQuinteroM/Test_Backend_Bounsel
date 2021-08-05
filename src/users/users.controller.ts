@@ -22,15 +22,17 @@ export class UsersController {
   @Get(':id')
   async findOne(@Param('id') id: number) {
     const data = await this.usersService.findOne(id);
+    return {data};
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  async update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
     return  await this.usersService.update(+id, updateUserDto);
   }
 
   @Delete(':id')
-  async  remove(@Param('id') id: string) {
-    return await this.usersService.remove(+id);
+  async  deleteOne(@Param('id') id: number) {
+    const  data = await this.usersService.deleteOne(id)
+    return {message:"User Deleted", data}
   }
 }

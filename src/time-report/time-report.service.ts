@@ -20,12 +20,18 @@ export class TimeReportService {
      return timeReport;
   }
 
-  findAll() {
-    return `This action returns all timeReport`;
+ async findAll() {
+    return await this.timeReportRepository.find() ;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} timeReport`;
+  async findOne(user_id): Promise<TimeReport[]> {
+    return await this.timeReportRepository.find({
+      where:{
+         user : user_id
+      },
+      relations:['user']
+    })
+    
   }
 
   update(id: number, updateTimeReportDto: UpdateTimeReportDto) {

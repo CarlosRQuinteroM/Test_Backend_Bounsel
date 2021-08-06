@@ -16,14 +16,17 @@ export class TimeReportController {
     return { message: 'Post created', data };
   }
 
-  @Get()
+  @Get('find')
   async findAll() {
-    return await this.timeReportService.findAll();
+    const data = await this.timeReportService.findAll();
+    return data;
   }
 
-  @Get()
+  @Auth()
+  @Get('findone/:id')
   async findOne(@Param('id') id: number) {
-    return await this.timeReportService.findOne(id);
+    const data = await this.timeReportService.findOne(id);
+    return data;
   }
 
   @Put(':id')

@@ -17,7 +17,7 @@ export class UsersController {
     return{mesage:`User created`, data}
   }
   
-  @Auth()
+  // @Auth()
   @Get()
   async findAll() {
     const data = await this.usersService.findAll();

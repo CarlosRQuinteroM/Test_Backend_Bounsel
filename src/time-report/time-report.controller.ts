@@ -22,7 +22,7 @@ export class TimeReportController {
     return data;
   }
 
-  @Auth()
+  // @Auth()
   @Get('findone/:id')
   async findOne(@Param('id') id: number) {
     const data = await this.timeReportService.findOne(id);

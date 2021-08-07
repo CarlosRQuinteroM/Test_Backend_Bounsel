@@ -12,7 +12,7 @@ export class TimeReport {
     user:User;
     @Column({name:'start_date', type:'timestamp'})
     start_date:Date;
-    @Column({name:'end_date', type:'timestamp', nullable:true})
+    @Column({name:'end_date', type:'timestamp'})
     end_date:Date;
     @Column({name:'total_time', type:'timestamp'})
     total_time:TimeReport;
